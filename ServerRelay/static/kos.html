@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>GoForThrottleUp - kOS Terminal</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1">
+      <!-- CSS -->
+      <link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="jqwidgets/styles/jqx.base.css" type="text/css" />
+      <link rel="stylesheet" href="jqwidgets/styles/jqx.arctic.css" type="text/css" />
+      <link rel="stylesheet" href="css/leaflet.ksp-src.css" type="text/css" />
+      <link rel="stylesheet" href="css/main.css">
+      
+      <!-- Fonts -->
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+      
+      <!-- JS -->
+      <script src="js/jquery-2.1.0.min.js"></script>
+      <script type="text/javascript" src="jqwidgets/jqxcore.js"></script>
+      <script type="text/javascript" src="jqwidgets/jqxdata.js"></script>
+      <script type="text/javascript" src="jqwidgets/jqxchart.js"></script>
+      <script type="text/javascript" src="jqwidgets/jqxgauge.js"></script>
+      
+      
+      <script src="js/bootstrap.min.js"></script>       
+      <script src="js/main.js"></script> 
+  </head>
+<body>
+  <div class="container-fluid">
+    <div class="row header-row">
+      <div class="col-md-8">
+		<h1><span class="glyphicon glyphicon-camera"></span> kOS Remote Terminal</h1>
+		<div id="linksbar"></div>
+	  </div>	  
+      <div class="col-md-4">
+        <h3><span class="glyphicon glyphicon-time"></span> Mission Time</h3>
+        <table class="table table-condensed">
+        <tbody>
+        <tr><td><span class="readout-label">Mission:</span></td><td class="text-right"><span class="mission-time-readout">alt</span></td></tr>
+        <tr><td><span class="readout-label">Universal:</span></td><td class="text-right"><span class="u-time-readout">alt</span></td></tr>
+        </tbody>
+        </table> 
+      </div>
+    </div> <!-- end row -->
+    <div class="row">
+		<div class="col-md-3">
+		<h3>kOS Terminal</h3>
+		<table class="table table-condensed">
+			<tbody>
+				<tr>
+					<td class="text-left"><span class="readout-label">Active</span></td>
+					<td class="text-right"><span class="kos-terminal_active-readout">No</span></td>
+				</tr>
+				<tr>
+					<td class="text-left"><span class="readout-label">Name</span></td>
+					<td class="text-right"><span class="kos-terminal_name-readout">null</span></td>
+				</tr>
+				<tr>
+					<td class="text-left"><span class="readout-label">ID</span></td>
+					<td class="text-right"><span class="kos-terminal_id-readout">NaN</td>
+				</tr>
+				<tr>
+					<td class="text-left"><span class="readout-label">Running</span></td>
+					<td class="text-right"><span class="kos-terminal_running-readout">No</span></td>
+				</tr>
+			</tbody>
+		</table>
+	  </div>
+     </div> <!-- end row -->
+		<div class="col-md-9">
+			<textarea rows="25" cols="150">LAT: 45.0023214568456
+LON: 123.5123578961235
+ALT: 150016.1236577898
+VEL: 3125.543218914354
+INC: 88.15843514238741
+SMA: 150020.0627942568
+ECC: 0.005684235113845
+=== SENT ON 01/02/09 4:06 KMT ===
+TILE:  45N123E
+BANDS: 12357</textarea>
+		</div>
+  </div><!-- end container -->
+</body>
+</html>
+        
+        
+      

@@ -127,7 +127,7 @@ $(document).ready(function() {
   LARP.startUp();
   KSPMAP.startUp();
   $(".status-light").popover();
-  $("#linksbar").html('( <a href="landing.html">Landing</a> | <a href="levels.html">Levels</a> | <a href="orbit.html">Encounter</a> | <a href="flight.html">Guidance</a> | <a href="lights.html">Lights</a> | <a href="big.html">Big Screen</a> | <a href="cameras.html">Cameras</a> )');
+  $("#linksbar").html('( <a href="landing.html">Landing</a> | <a href="levels.html">Levels</a> | <a href="orbit.html">Encounter</a> | <a href="flight.html">Guidance</a> | <a href="lights.html">Lights</a> | <a href="big.html">Big Screen</a> | <a href="cameras.html">Cameras</a> | <a href="kos.html">kOS</a> )');
 });
 
 var BODIES = ["Kerbol", "Kerbin", "Mun", "Minmus", "Moho", "Eve", "Duna", "Ike", "Jool", "Laythe", "Vall", "Bop", "Tylo", "Gilly", "Pol", "Dres", "Eeloo"];
@@ -1002,6 +1002,39 @@ function RenderData()
 		$(".inclination-readout").text($globaldata['o.inclination'].toFixed(4));
 		$("#gauge-inclination").val($globaldata['o.inclination']);
 	}
+	
+	// kOS
+	if('kos.terminal.name' in $globaldata)
+	{
+		$(".kos-terminal_name-readout").text($globaldata['kos.terminal.name']);
+	}
+	//$(".kos-terminal_name-readout").text("KerbSat.OrbitData");
+	
+	if('kos.terminal.id' in $globaldata)
+	{
+		$(".kos-terminal_id-readout").text($globaldata['kos.terminal.id']);
+	}
+	//$(".kos-terminal_id-readout").text("12");
+	
+	if('kos.terminal.running' in $globaldata)
+	{
+		$(".kos-terminal_running-readout").text("Yes");
+	}
+	else
+	{
+		$(".kos-terminal_running-readout").text("No");
+	}
+	//$(".kos-terminal_running-readout").text("No");
+	
+	if('kos.terminal.active' in $globaldata)
+	{
+		$(".kos-terminal_active-readout").text("Yes");
+	}
+	else
+	{
+		$(".kos-terminal_active-readout").text("No");
+	}
+	//$(".kos-terminal_active-readout").text("Yes");
 	
 	var $datafound = false;
 	var $incdelta = -1;
