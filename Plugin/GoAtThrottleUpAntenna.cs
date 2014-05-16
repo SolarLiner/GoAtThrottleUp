@@ -102,6 +102,9 @@ namespace GATU
 				DoubleValues["v.angleToPrograde"] = angle;
 			}
 
+        // kOS data
+
+
 			//POST DATA
 			var form = new WWWForm();
 			form.AddField("type", "high");
