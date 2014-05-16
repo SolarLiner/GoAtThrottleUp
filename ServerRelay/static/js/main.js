@@ -127,7 +127,7 @@ $(document).ready(function() {
   LARP.startUp();
   KSPMAP.startUp();
   $(".status-light").popover();
-  $("#linksbar").html('( <a href="landing.html">Landing</a> | <a href="levels.html">Levels</a> | <a href="orbit.html">Encounter</a> | <a href="flight.html">Guidance</a> | <a href="lights.html">Lights</a> | <a href="big.html">Big Screen</a> | <a href="cameras.html">Cameras</a> | <a href="kos.html">kOS</a> )');
+  $("#linksbar").html('( <a href="landing.html">Landing</a> | <a href="levels.html">Levels</a> | <a href="orbit.html">Encounter</a> | <a href="flight.html">Guidance</a> | <a href="lights.html">Lights</a> | <a href="big.html">Big Screen</a> | <a href="cameras.html">Cameras</a> )');
 });
 
 var BODIES = ["Kerbol", "Kerbin", "Mun", "Minmus", "Moho", "Eve", "Duna", "Ike", "Jool", "Laythe", "Vall", "Bop", "Tylo", "Gilly", "Pol", "Dres", "Eeloo"];
@@ -1003,39 +1003,6 @@ function RenderData()
 		$("#gauge-inclination").val($globaldata['o.inclination']);
 	}
 	
-	// kOS
-	if('kos.terminal.name' in $globaldata)
-	{
-		$(".kos-terminal_name-readout").text($globaldata['kos.terminal.name']);
-	}
-	//$(".kos-terminal_name-readout").text("KerbSat.OrbitData");
-	
-	if('kos.terminal.id' in $globaldata)
-	{
-		$(".kos-terminal_id-readout").text($globaldata['kos.terminal.id']);
-	}
-	//$(".kos-terminal_id-readout").text("12");
-	
-	if('kos.terminal.running' in $globaldata)
-	{
-		$(".kos-terminal_running-readout").text("Yes");
-	}
-	else
-	{
-		$(".kos-terminal_running-readout").text("No");
-	}
-	//$(".kos-terminal_running-readout").text("No");
-	
-	if('kos.terminal.active' in $globaldata)
-	{
-		$(".kos-terminal_active-readout").text("Yes");
-	}
-	else
-	{
-		$(".kos-terminal_active-readout").text("No");
-	}
-	//$(".kos-terminal_active-readout").text("Yes");
-	
 	var $datafound = false;
 	var $incdelta = -1;
 	var $eccdelta = -1;
@@ -1504,7 +1471,7 @@ LARP = {
     init: function() {
       function GetHighData()
       {
-        $.get("http://" + window.location.host + "/high.api",function(data) { 
+        $.get("http://" + window.location.host + "/getapi/high",function(data) { 
           ProcessData(data);
           setTimeout(function() { GetHighData(); } ,150);
         })
@@ -1516,7 +1483,7 @@ LARP = {
       }
       function GetMedData()
       {
-        $.get("http://" + window.location.host + "/med.api",function(data) { 
+        $.get("http://" + window.location.host + "/getapi/med",function(data) { 
           ProcessData(data);
           setTimeout(function() { GetMedData(); } ,400);
         })
@@ -1528,7 +1495,7 @@ LARP = {
       }
       function GetLowData()
       {
-        $.get("http://" + window.location.host + "/low.api",function(data) { 
+        $.get("http://" + window.location.host + "/getapi/low",function(data) { 
           ProcessData(data);
           setTimeout(function() { GetLowData(); } ,900);
         })
@@ -1549,24 +1516,44 @@ LARP = {
       {
         //console.log("UpdateMutliCameras:" + $cameraid);
         var $divactive  = "#camera"+$cameraid+"-active";
-        var $divpassive = "#camera"+$cameraid+"-passive";
-        var $url = "/imageb64.get/" + $cameraid + "?" + Math.random();
+        var $divpassive  = "#camera"+$cameraid+"-passive";
+        
+        var $url = "/getimage/" + $cameraid;
         
         if ($($divactive).length > 0)
         {         
           $.get($url,function(data)
           {
-            console.log("balls");
-            $($divpassive).css("background-image","url(data:image/png;base64," + data + ")");
-            $($divactive).fadeOut(100 + Math.floor((Math.random() * 100)) ,function(){
-              $($divactive).css("background-image","url('data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=')");
-              $($divactive).css("background-image","url(data:image/png;base64," + data + ")");
-              $($divactive).fadeIn(10,function()
+
+            var dataz = $.parseJSON(data);
+            if ($($divactive).data("hash") != dataz["hash"]) 
+            { 
+              $($divactive).data("hash",dataz["hash"]); 
+              if (dataz["image"] != "")
               {
-                $($divpassive).css("background-image","url('data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=')");
-                setTimeout(function() { UpdateMutliCameras($cameraid); },100 + Math.floor((Math.random() * 100)));    
-              });
-            });
+                $($divactive).data("lastupdate",new Date().getTime());
+                $($divactive).attr("src","data:image/png;base64," + dataz["image"]);
+                $($divpassive).attr("src","data:image/png;base64," + dataz["image"]); 
+                setTimeout(function() { UpdateMutliCameras($cameraid); },15 + Math.floor((Math.random() * 15)));               
+              }
+              else
+              {
+                $($divactive).attr("src","/static/img/nodata.png");
+                setTimeout(function() { UpdateMutliCameras($cameraid); },1000);  
+              }
+            }
+            else
+            {
+              if (new Date().getTime() - $($divactive).data("lastupdate") > 5000)
+              {
+                $($divactive).attr("src","/static/img/nodata.png");
+                setTimeout(function() { UpdateMutliCameras($cameraid); },1000); 
+              }
+              else
+              {
+                setTimeout(function() { UpdateMutliCameras($cameraid); },25 + Math.floor((Math.random() * 15))); 
+              }
+            }
           });
         }
 
